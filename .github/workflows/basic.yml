@@ -19,7 +19,7 @@ jobs:
     env:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v6
 
       # TODO: rename azure-pipelines/linux/xvfb.init to github-actions
       - name: Setup Build Environment
@@ -29,7 +29,7 @@ jobs:
           sudo update-rc.d xvfb defaults
           sudo service xvfb start
 
-      - uses: actions/setup-node@v3
+      - uses: actions/setup-node@v6
         with:
           node-version: 16
 
@@ -38,7 +38,7 @@ jobs:
         run: echo "value=$(node build/azure-pipelines/common/computeNodeModulesCacheKey.js)" >> $GITHUB_OUTPUT
       - name: Cache node modules
         id: cacheNodeModules
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: "**/node_modules"
           key: ${{ runner.os }}-cacheNodeModulesLinux-${{ steps.nodeModulesCacheKey.outputs.value }}
@@ -48,7 +48,7 @@ jobs:
         run: echo "dir=$(yarn cache dir)" >> $GITHUB_OUTPUT
       - name: Cache yarn directory
         if: ${{ steps.cacheNodeModules.outputs.cache-hit != 'true' }}
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: ${{ steps.yarnCacheDirPath.outputs.dir }}
           key: ${{ runner.os }}-yarnCacheDir-${{ steps.nodeModulesCacheKey.outputs.value }}
@@ -79,9 +79,9 @@ jobs:
     env:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v6
 
-      - uses: actions/setup-node@v3
+      - uses: actions/setup-node@v6
         with:
           node-version: 16
 
@@ -90,7 +90,7 @@ jobs:
         run: echo "value=$(node build/azure-pipelines/common/computeNodeModulesCacheKey.js)" >> $GITHUB_OUTPUT
       - name: Cache node modules
         id: cacheNodeModules
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: "**/node_modules"
           key: ${{ runner.os }}-cacheNodeModulesLinux-${{ steps.nodeModulesCacheKey.outputs.value }}
@@ -100,7 +100,7 @@ jobs:
         run: echo "dir=$(yarn cache dir)" >> $GITHUB_OUTPUT
       - name: Cache yarn directory
         if: ${{ steps.cacheNodeModules.outputs.cache-hit != 'true' }}
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: ${{ steps.yarnCacheDirPath.outputs.dir }}
           key: ${{ runner.os }}-yarnCacheDir-${{ steps.nodeModulesCacheKey.outputs.value }}
@@ -141,9 +141,9 @@ jobs:
     env:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v6
 
-      - uses: actions/setup-node@v3
+      - uses: actions/setup-node@v6
         with:
           node-version: 16
 
@@ -152,7 +152,7 @@ jobs:
         run: echo "value=$(node build/azure-pipelines/common/computeNodeModulesCacheKey.js)" >> $GITHUB_OUTPUT
       - name: Cache node modules
         id: cacheNodeModules
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: "**/node_modules"
           key: ${{ runner.os }}-cacheNodeModulesLinux-${{ steps.nodeModulesCacheKey.outputs.value }}
@@ -162,7 +162,7 @@ jobs:
         run: echo "dir=$(yarn cache dir)" >> $GITHUB_OUTPUT
       - name: Cache yarn directory
         if: ${{ steps.cacheNodeModules.outputs.cache-hit != 'true' }}
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: ${{ steps.yarnCacheDirPath.outputs.dir }}
           key: ${{ runner.os }}-yarnCacheDir-${{ steps.nodeModulesCacheKey.outputs.value }}
